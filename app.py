@@ -77,7 +77,6 @@ def generate():
         course3 = request.form['course3']
         projects = request.form['projects']
 
-        # HTML content directly in the code
         html_content = f"""
         <!DOCTYPE html>
 <html lang="en">
@@ -131,11 +130,8 @@ def generate():
 
         """
 
-        # Generate PDF from HTML content
         pdf_path = 'resume.pdf'
         pdfkit.from_string(html_content, pdf_path)
-
-        # Return the generated PDF path
         return render_template('downloadpdf.html', pdf_path=pdf_path)
     return render_template('cantdownload.html')
 
