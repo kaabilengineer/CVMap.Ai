@@ -23,6 +23,7 @@ class SubjectiveTest:
         self.summary = data
         self.noOfQues = noOfQues
 
+    
     @staticmethod
     def word_tokenizer(sequence):
         word_tokens = list()
