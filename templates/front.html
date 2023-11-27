@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVMaps.AI</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/front.css') }}">
+</head>
+<body>
+  <div class="header">
+    <video autoplay loop muted>
+      <source src="static/assets/video2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="navbar">
+      <div class="icon">
+        <img src="static/assets/logo.png" alt="Logo">
+      </div>
+      
+      
+  <a href="#prediction">Products</a>
+  <a href="#contact">Contact</a>
+    </div>
+    
+  </div>
+  <div class="content">
+    <h1 class="heading">Welcome to CVMaps.AI</h1>
+    <p class="about-text">CVMap.Ai is an innovative AI-powered platform designed to provide comprehensive support to students across all facets of crafting an impressive CV or resume. It boasts an array of remarkable capabilities, including question prediction to anticipate interview inquiries, accurate job post prediction, and even automated resume generation. With CVMap.Ai, students can harness the power of cutting-edge technology to enhance their resume-building process, ensuring that their qualifications, experiences, and skills are effectively showcased. By leveraging AI-driven insights, students can gain a competitive edge in the job market, creating a compelling narrative that resonates with potential employers. Whether it's crafting personalized responses, foreseeing job requirements, or streamlining the resume creation journey, CVMap.Ai is poised to revolutionize how students approach and succeed in their career aspirations.</p>
+    <button class="explore-cvmap-button" onclick="scrollToPrediction()">Explore CVMap.Ai</button>
+
+</div>
+<section id = "prediction">
+<form action="/predict" class="prediction">
+    <div class="prediction-image">
+      <img src="static/assets/predict.jpg" alt="Prediction Image">
+    </div>
+    <div class="prediction-content">
+      <h2 class="prediction-heading">CVPredict.Ai</h2>
+      <p class="prediction-text">Unlocking a world of possibilities, CVPredict.Ai stands as your AI-powered ally, adept at anticipating interview questions tailored to your CV. Seamlessly enhancing your preparation process, it empowers you with AI-driven insights, magnifying your readiness and instilling unwavering confidence. With the capacity to foretell interview queries, CVPredict.Ai equips you with the strategic advantage needed to excel, ensuring you approach interviews with poise and mastery</p>
+      <button action="/predict" class="prediction-button">Start with CVPredict.Ai</button>
+  
+    </div>
+</form>
+</section>
+  <section class="generation">
+    <form action = "/generate" class="generation">
+    <div class="generation-content">
+      <h2 class="generation-heading">CVGen.Ai</h2>
+      <p class="generation-text">CVGen.Ai is your ultimate resume creation companion. Seamlessly crafting your resume based on user inputs, it streamlines the process and ensures a polished representation of your skills and experiences. With its user-friendly interface and intelligent design, CVGen.Ai enables you to present yourself professionally and confidently.</p>
+      <button onclick="window.location.href='generate.html'" class="generation-button">Start with CVGen.Ai</button>
+ 
+    </div>
+    <div class="generation-image">
+      <img class= 'resumeimage' src="static/assets/resume2.png" alt="CVGen.Ai Image">
+    </div>
+  </form>
+  </section>
+
+  <section class="contact">
+    <div class="contact-content">
+      <h2 class="contact-heading">Contact</h2>
+      <p class="contact-text">Instagram - @kaabil.engineer</a></p>
+    </div>
+    
+  </section>
+
+  </section>
+
+  <script>
+    function scrollToPrediction() {
+    
+      const targetSection = document.querySelector(".prediction");
+  
+      if (targetSection) {
+      
+        const offset = targetSection.offsetTop;
+  
+        window.scrollTo({
+          top: offset,
+          behavior: "smooth"
+        });
+      }
+    }
+
+    function scrollToSection(sectionId) {
+      const targetSection = document.getElementById(sectionId);
+      if (targetSection) {
+        const offset = targetSection.offsetTop;
+
+        
+        window.scrollTo({
+          top: offset,
+          behavior: "smooth"
+        });
+      }
+    }
+    document.querySelector('a[href="#prediction"]').addEventListener('click', () => scrollToSection('prediction'));
+    document.querySelector('a[href="#team"]').addEventListener('click', () => scrollToSection('team'));
+    document.querySelector('a[href="#contact"]').addEventListener('click', () => scrollToSection('contact'));
+  </script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prediction Page</title>
+
+</head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/predict.css') }}">
+
+<body>
+  <video id="background-video" autoplay muted loop>
+    <source src="static/assets/predict.mp4" type="video/mp4">
+
+    Your browser does not support the video tag.
+  </video>
+  <div id="content-container">
+    <div>
+      <img class="image" src="static/assets/predict.png" alt="Image">
+    </div>
+  </div>
+  <div id="text-container" class="centered-text">
+    <p>
+      Upload your Document in PDF file and let the magic happen. You will get some questions based on your Document.
+    </p>
+  </div>
+  <form id="upload-section" action="/test_generate" method="post" enctype="multipart/form-data">
+    <input class="uploadbutton" type="file" name="pdf_file" id="pdf-upload" accept=".pdf">
+    <!-- <button class="uploadbutton" type="submit" id="upload-button">Upload PDF</button> -->
+    <input type="submit" class="uploadbutton" id="submit-button"  value="Generate">
+  </form>
+
+  <div id="chat-section" class="container">
+    {% for question in cresults %}
+      <div class="question">
+        <p>{{ question }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <script>
+    function dragOverHandler(event) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    }
+
+    function dropHandler(event) {
+      event.preventDefault();
+      const files = event.dataTransfer.files;
+      handleFiles(files);
+    }
+
+    function handleFiles(files) {
+      const uploadSection = document.getElementById('upload-section');
+      const fileNames = Array.from(files).map(file => file.name).join(', ');
+      uploadSection.innerHTML = `<h2>Uploaded Files</h2><p>${fileNames}</p>`;
+    }
+
+    const uploadButton = document.getElementById('upload-button');
+  uploadButton.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.txt,.pdf,.doc,.docx'; 
+    input.multiple = false; 
+    input.addEventListener('change', event => {
+      const files = event.target.files;
+      handleFiles(files);
+    });
+    input.click();
+  });
+  </script>
+</body>
+</html>

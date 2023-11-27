@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prediction Page</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+  }
+  #background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+    opacity: 0.6;
+  }
+  #content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    margin: 50px auto; /* Adjusted margin for centering */
+    border-radius: 30px;
+    background-color: rgba(26, 26, 26, 0.8);
+    width: 40%;
+  }
+
+  .image {
+    width: 300px;
+    height: 300px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+ 
+  #submit-btn-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  #submit-btn {
+    border-radius: 15px;
+    background-color: aqua;
+    width: 20%;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  #submit-btn:hover {
+    background-color: #000;
+    color: aqua;
+  }
+  #chat-section {
+      margin-top: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 10px;
+      width: 50%;
+      margin: 0 auto;
+      color: white;
+      font-weight: bold;
+      height: 600px; /* Set the height to 60% */
+      overflow-y: scroll; /* Add scrolling for excess content */
+      scrollbar-width: none; /* Firefox */
+     -ms-overflow-style: none; /* Internet Explorer and Edge */
+    }
+    #chat-section::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar in WebKit browsers (e.g., Chrome, Safari) */
+}
+    #input-form {
+      background-color: rgba(70, 70, 70, 0.4);
+      border-radius: 15px;
+      padding: 20px;
+
+    }
+    #input-form input[type="text"],
+    #input-form input[type="email"],
+    #input-form textarea {
+      width: 95%;
+      padding: 10px;
+      color: #ffffff;
+
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+    #input-form textarea {
+      height: 100px; /* Adjust the height for the textareas */
+    }
+
+    .centered-text {
+    text-align: center;
+    font-size: 15px;
+  }
+
+  /* Style the container for the text */
+  #text-container {
+    margin-top: 20px; 
+    margin-bottom: 20px;
+  }
+  #myModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    #myModal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Style for the modal content */
+    #modal-content {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      text-align: center;
+      border-radius: 15px;
+    }
+
+    /* Style for the close button */
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    /* Style for buttons inside the modal */
+    .modal-button {
+      height: 400px;
+      width: 300px;
+      border-radius: 15px;
+      margin: 10px;
+      display: inline-block;
+    }
+</style>
+</head>
+<body>
+<video id="background-video" autoplay muted loop>
+  <source src="static/assets/predict.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+
+<div id="content-container">
+  <div>
+    <img class='image' src="static/assets/gen.png" alt="Image">
+  </div>
+</div>
+<div id="text-container" class="centered-text">
+  <p>
+    Fill the details below and generate your resume with CVGen.AI
+  </p>
+</div>
+
+<form action="/generatepdf" method="POST">
+  <div id="chat-section">
+    <div id="input-form">
+      <input type="text" id="name" name="Name" placeholder="Name" required>
+      <input type="email" id="Email" name="Email" placeholder="Email" required>
+      <input type="text" id="LinkedIn" name="LinkedIn" placeholder="LinkedIn">
+      <input type="text" id="Experience" name="Experience" placeholder="Experience in years" required>
+      <input type="text" id="Graduation" name="Graduation" placeholder="Graduation in Degree" required>
+      <input type="text" id="CGPA" name="CGPA" placeholder="Graduation CGPA" required>
+      <input type="text" id="University" name="University" placeholder="University Name" required>
+      <textarea id="Skills" name="Skills" placeholder="Skills (Max 1000 Characters)" required></textarea>
+      <textarea id="projects" name="projects" placeholder="Projects (Max 1500 Characters)" required></textarea>
+      <textarea id="Internship" name="Internship" placeholder="Internship roles (Max 1000 Characters)" required></textarea>
+      <textarea id="Achievements" name="Achievements" placeholder="Achievements (Max 1000 Characters)" required></textarea>
+      <input type="text" id="course1" name="course1" placeholder="Course 1" required>
+      <input type="text" id="course2" name="course2" placeholder="Course 2" >
+      <input type="text" id="course3" name="course3" placeholder="Course 3" >
+
+    </div>
+  </div>
+  <div id="submit-btn-container">
+    <button id="submit-btn" action="/generatepdf">Generate</button>
+  </div>
+</form>
+
+<!-- <form action="/generatepdf">
+<div id="myModal">
+  <div id="modal-content">
+    <span class="close-button" onclick="closeModal()">&#10006;</span>
+    <p>Select the style of resume</p>
+    <button action="/generatepdf" class="modal-button">
+      <img src="static/assets/resume1.png" alt="Style 1" style="max-width: 100%; max-height: 100%;">
+    </button>
+  </div>
+</div>
+</form> -->
+
+<!-- <script>
+  function openModal() {
+    document.getElementById("myModal").style.display = "block";
+  }
+  function closeModal() {
+    document.getElementById("myModal").style.display = "none";
+  }
+</script> -->
+
+</body>
+</html>
